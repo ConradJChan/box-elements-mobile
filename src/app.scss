@@ -1,4 +1,4 @@
-@import '~box-ui-elements/es/elements/content-sidebar/ContentSidebar.scss';
+@import '~box-ui-elements/dist/sidebar.css';
 
 body,
 html,
@@ -38,4 +38,10 @@ a:visited {
 .body {
     display: flex;
     flex: 1 0 auto;
+}
+
+.be {
+    .bcs-activity-feed-active-state {
+        padding: 9px 25px;
+    }
 }
