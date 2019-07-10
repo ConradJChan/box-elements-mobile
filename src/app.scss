@@ -6,7 +6,7 @@ html,
     border: 0 none;
     box-sizing: border-box !important;
     font-family: Lato, Helvetica Neue, Helvetica, Arial, sans-serif;
-    height: auto;
+    height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -25,6 +25,8 @@ a:visited {
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .body {
