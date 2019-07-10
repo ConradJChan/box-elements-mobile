@@ -5,7 +5,7 @@ import API from "box-ui-elements/es/api/APIFactory";
 import { SIDEBAR_FIELDS_TO_FETCH } from "box-ui-elements/es/utils/fields";
 import Main from "./Main";
 
-async function fetchData(fileId, token, options) {
+async function fetchData(fileId, token, { enableAppActivity } = {}) {
   const api = new API({
     clientName: "MobileElements",
     token
@@ -15,7 +15,7 @@ async function fetchData(fileId, token, options) {
     return new Promise((resolve, reject) => {
       api
         .getFeedAPI(false)
-        .feedItems(file, true, resolve, reject, () => {}, true, false);
+        .feedItems(file, true, resolve, reject, () => {}, true, !!enableAppActivity);
     });
   };
 
@@ -34,7 +34,10 @@ async function fetchData(fileId, token, options) {
   };
 
   const file = await fetchFile(fileId);
-  const [user, feedItems] = await Promise.all([fetchUser(fileId), fetchFeedData(file)]);
+  const [user, feedItems] = await Promise.all([
+    fetchUser(fileId),
+    fetchFeedData(file)
+  ]);
   console.log(feedItems);
 
   const features = {
@@ -45,6 +48,9 @@ async function fetchData(fileId, token, options) {
         feedbackUrl: "http://example.org/",
         newApi: true,
         newCards: true
+      },
+      appActivity: {
+        enabled: !!enableAppActivity
       }
     }
   };
