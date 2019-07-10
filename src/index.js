@@ -72,25 +72,24 @@ async function fetchData(fileId, token, { enableAppActivity } = {}) {
 
         // need to load the pending item
         fetchFeedData(file, (items) => {
-            feedItems = items;
-            renderComponent();
+            renderComponent(items);
         });
     };
 
     const file = await fetchFile(fileId);
-    let [user, feedItems] = await Promise.all([
+    const [user, feedItems] = await Promise.all([
         fetchUser(fileId),
-        fetchFeedData(file)
+        fetchFeedData(file, renderComponent)
     ]);
 
-    const renderComponent = () => {
+    const renderComponent = (newFeedItems) => {
         render(
-            <Main file={file} items={feedItems} features={features} user={user} onCommentCreate={createComment} />,
+            <Main file={file} items={newFeedItems} features={features} user={user} onCommentCreate={createComment} />,
             document.querySelector(".container")
         );
     }
 
-    renderComponent();
+    renderComponent(feedItems);
 }
 
 render(
