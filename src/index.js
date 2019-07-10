@@ -56,9 +56,14 @@ async function fetchData(fileId, token, { enableAppActivity } = {}) {
   };
 
   render(
-    <Main items={feedItems} features={features} user={user} />,
+    <Main file={file} items={feedItems} features={features} user={user} />,
     document.querySelector(".container")
   );
 }
+
+render(
+    <Main />,
+    document.querySelector(".container")
+);
 
 window.fetchData = fetchData;
