@@ -6,10 +6,10 @@ import File from 'box-ui-elements/es/api/File';
 import API from 'box-ui-elements/es/api';
 import './app.scss';
 
-const App = ({ file, items, user }) => {
+const App = ({ onCommentCreate, file, items, user }) => {
     return (
         <div className='app be'>
-            <ActivityFeed currentUser={user} feedItems={items} file={file} onCommentCreate={() => {}} />
+            <ActivityFeed currentUser={user} feedItems={items} file={file} onCommentCreate={onCommentCreate} />
         </div>
     );
 }

@@ -12,9 +12,9 @@ import App from './App';
 // Not needed unless working with non "en" locales
 // addLocaleData(enLocaleData);
 
-const Main = ({ file, items, language = 'en-US', user }) => (
+const Main = ({ onCommentCreate, file, items, language = 'en-US', user }) => (
     <Internationalize language={language} messages={messages}>
-        <App items={items} user={user} file={file} />
+        <App items={items} user={user} file={file} onCommentCreate={onCommentCreate} />
     </Internationalize>
 );
 
