@@ -68,7 +68,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "yarn install && yarn run clean && yarn run devBABEL_ENV=dev NODE_ENV=dev ./node_modules/.bin/webpack --progress --colors",
+    "build": "yarn install && yarn run clean && BABEL_ENV=dev NODE_ENV=dev ./node_modules/.bin/webpack --progress --colors",
     "start": "yarn install && BABEL_ENV=dev NODE_ENV=dev node --max_old_space_size=8192 node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development"
   },
   "browserslist": [
