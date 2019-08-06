@@ -5,6 +5,11 @@ import API from "box-ui-elements/es/api/APIFactory";
 import { SIDEBAR_FIELDS_TO_FETCH } from "box-ui-elements/es/utils/fields";
 import Main from "./Main";
 
+let currentFileId;
+let file;
+let feedItems;
+let user;
+let currentUser;
 const api = new API({
     clientName: "MobileElements"
 });
@@ -72,24 +77,31 @@ async function fetchData(fileId, token, { enableAppActivity } = {}) {
 
         // need to load the pending item
         fetchFeedData(file, (items) => {
-            renderComponent(items);
+            renderComponent(file, items, user, createComment);
         });
     };
 
-    const file = await fetchFile(fileId);
-    const [user, feedItems] = await Promise.all([
-        fetchUser(fileId),
-        fetchFeedData(file, renderComponent)
-    ]);
-
-    const renderComponent = (newFeedItems) => {
+    const renderComponent = (file, feedItems, user, createComment) => {
         render(
-            <Main file={file} items={newFeedItems} features={features} user={user} onCommentCreate={createComment} />,
+            <Main file={file} items={feedItems} features={features} user={user} onCommentCreate={createComment} />,
             document.querySelector(".container")
         );
     }
 
-    renderComponent(feedItems);
+    if (fileId !== currentFileId) {
+        file = await fetchFile(fileId);
+        currentFileId = fileId;
+    }
+
+    if (!currentUser || user.id !== currentUser.id) {
+        user = await fetchUser(fileId);
+        console.log('fetched user!');
+        currentUser = user;
+    }
+
+    feedItems = await fetchFeedData(file, (items) => renderComponent(file, items, user, createComment));
+
+    renderComponent(file, feedItems, user, createComment);
 }
 
 render(
@@ -98,3 +110,4 @@ render(
 );
 
 window.fetchData = fetchData;
+window.ElementsCache = api.options.cache;

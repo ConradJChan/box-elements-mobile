@@ -6,10 +6,13 @@ import File from 'box-ui-elements/es/api/File';
 import API from 'box-ui-elements/es/api';
 import './app.scss';
 
-const App = ({ onCommentCreate, file, items, user }) => {
+const App = ({ onCommentCreate, file, items = [], user }) => {
+    const isEmpty = items.length === 0;
     return (
         <div className='app be'>
-            <ActivityFeed currentUser={user} feedItems={items} file={file} onCommentCreate={onCommentCreate} />
+            {isEmpty ? (
+                <EmptyState isLoading={true} />
+            ) : (<ActiveState currentUser={user} items={items} />) }
         </div>
     );
 }
