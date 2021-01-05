@@ -20,7 +20,7 @@
     "@babel/types": "^7.0.0",
     "@box/languages": "^1.0.0",
     "autoprefixer": "^9.1.5",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-flow-react-proptypes": "^24.1.2",
